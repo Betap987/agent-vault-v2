@@ -1,0 +1,15 @@
+﻿feat: Agent Vault v2 desplegado y validado en testnet
+
+- Contrato multiowner con storage persistente por owner
+- Vault Sessions: OAuth de ejecucion financiera on-chain
+- Policy engine completo con TransferResult tipado
+- Autopausa on-chain al tercer intento fallido consecutivo
+- Eventos on-chain: vault_init, deposit, withdraw, session_open
+  session_close, session_expired, transfer, session_transfer, auto_paused
+- execute_transfer con policy engine completo
+- execute_session_transfer para flujo nativo x402
+- Funciones admin: set_paused, set_agent, set_whitelist, set_limits
+- Funciones read: get_config, get_state, get_whitelist, get_session
+
+Contract ID: CA7IQ2LMCIFEXSOFAP26FNASNC2N7C7UN2KABKDARTMLYUNW736GRNAS
+Network: Stellar Testnet
