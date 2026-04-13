@@ -65,7 +65,43 @@ Agent Vault v2 is designed to plug directly into the Stellar agent economy.
 
 **x402** — The native payment protocol for AI agents on Stellar. When an agent needs to access a paid API, the server responds HTTP 402, the agent pays from the vault session, and the resource is delivered. Every payment is policy-checked and recorded on-chain.
 
-**Etherfuse** — Payments from the vault arrive as Mexican pesos in real bank accounts via SPEI. The recipient never needs to interact with blockchain.
+**Etherfuse** — Payments from the vault arrive as Mexican pesos in real bank accounts via SPEI. The recipient never needs to interact with blockchain. Integration in progress — API key requested and pending approval.
+
+---
+
+## SDK
+
+Three functions. That's all you need to integrate Agent Vault v2 into any agent.
+
+```javascript
+const { initVault, openSession, executePayment } = require('./sdk');
+
+// Initialize vault with policies
+await initVault({
+  secretKey,
+  agentAddress,
+  tokenAddress,
+  whitelist,
+  windowLedgers,
+  spendingLimit,
+});
+
+// Open a session — the OAuth of financial execution
+await openSession({
+  secretKey,
+  sessionAgent,
+  budget,
+  durationLedgers,
+});
+
+// Execute payment — handles x402 automatically
+await executePayment({
+  secretKey,
+  ownerAddress,
+  recipient,
+  amount,
+});
+```
 
 ---
 
@@ -73,8 +109,8 @@ Agent Vault v2 is designed to plug directly into the Stellar agent economy.
 
 | What | Transaction |
 |---|---|
-| DeFindex deposit | `27d8348504cecd313d14...` |
-| x402 full flow | `959d3f405feec6a1dd52...` |
+| DeFindex deposit | `27d8348504cecd313d1478d1b1390458e4ccabcb368c73a221d6f32fcb6f3141` |
+| x402 full flow | `959d3f405feec6a1dd52c962fe9ddbd8a07db0d287680193337af39da0956df8` |
 | Vault session payment | Confirmed on ledger 1959795 |
 
 Contract on StellarExpert:
@@ -109,6 +145,7 @@ npm install
 node server.js
 
 # Terminal 2
+cd x402-demo
 node client.js
 ```
 
@@ -120,6 +157,16 @@ OWNER_ADDRESS=YOUR_PUBLIC_KEY
 CONTRACT_ID=CDZHY5PBD3AVBE4ZJ2NFTZE2VTHZQW7UCYHUMEQDGBXCZRPBAAOFOPZW
 RPC_URL=https://soroban-testnet.stellar.org
 PORT=3001
+```
+
+### SDK
+```bash
+cd sdk
+npm install
+```
+
+```javascript
+const { initVault, openSession, executePayment } = require('./index');
 ```
 
 ---
@@ -134,6 +181,7 @@ PORT=3001
 | Auto-pause | Working |
 | DeFindex integration | Working |
 | x402 integration | Working |
+| SDK | Working |
 | Etherfuse integration | API key requested — in progress |
 | Frontend | In progress |
 
